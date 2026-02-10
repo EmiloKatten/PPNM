@@ -15,7 +15,7 @@ hello.o: hello.h hello.cc
 
 .PHONY:clean
 clean:
-	$(RM) main main.o Out.txt *.o
+	$(RM) main main.o *.o
 
 test:
 	@echo $(CXX)
