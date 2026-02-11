@@ -13,7 +13,7 @@ double fgamma(double x){
 	}
 
 double lngamma(double x){
-        constexpr double NaN = std::numeric_limits<double>::quiet_NaN();
+	constexpr double NaN = std::numeric_limits<double>::quiet_NaN();
 	if(x <= 0) return NaN;
 	if(x < 9) return lngamma(x+1) - std::log(x);
 	return std::lgamma(x);
