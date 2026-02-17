@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "erf.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot [-3:3] \
+	 "erf.data" using 1:2 with points title "erf approximation"\
+     ,erf(x)

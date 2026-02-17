@@ -1,0 +1,14 @@
+set terminal svg background rgb "white"
+set output "fig1.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot [-5:5][-5:5] \
+	 "data.data" using 1:2 with points title "erf approximation"\
+     ,erf(x) \
+     ,"data.data" using 1:3 with points title "gamma approximation"\
+     ,gamma(x) \
+     ,"data.data" using 1:4 with points title "lngamma approximation"\
+     ,lgamma(x)
+
