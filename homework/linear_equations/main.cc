@@ -2,6 +2,7 @@
 #include <cmath>
 #include <random>
 #include "matrix.h"
+#include "qr.h"
 
 int main() {
 
