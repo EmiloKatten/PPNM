@@ -1,0 +1,8 @@
+set terminal svg background rgb "white"
+set output "dr.svg"
+set xlabel "dr"
+set ylabel "epsilon0"
+set key right bottom
+set tics out
+plot \
+	 "data_dr.txt" using 1:2 with lines title "fixed rmax"\
