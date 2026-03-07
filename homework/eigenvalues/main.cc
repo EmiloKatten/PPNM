@@ -138,7 +138,7 @@ int main(int argc,char** argv){
         data_dr<<i<<" "<<eps0_dr<<"\n";
     }
     std::ofstream data_rmax("data_rmax.txt");
-    for (double i = 1; i < 10; i+=0.05){
+    for (double i = 1; i < 10; i+=0.3){
         double eps0_rmax = compute_epsilon0(i, dr);
         data_rmax<<i<<" "<<eps0_rmax<<"\n";
     }
