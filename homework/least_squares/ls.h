@@ -3,8 +3,8 @@
 #include"qr.h"
 
 namespace pp
-{     
-vector lsfit(const std::vector<std::function<double(double)>>& fs,
+{
+std::tuple<vector, matrix> lsfit(const std::vector<std::function<double(double)>>& fs,
                 const vector& x,
                 const vector& y,
                 const vector& dy){
@@ -23,6 +23,8 @@ vector lsfit(const std::vector<std::function<double(double)>>& fs,
     }
 
     qr qr(A);
-    return qr.solve(b);
+    matrix R_inv = qr.R_inverse();
+    matrix sigma = R_inv*R_inv.transpose();
+    return std::tuple(qr.solve(b), sigma);
 }
 } // namespace pp

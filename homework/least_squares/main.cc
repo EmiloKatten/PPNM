@@ -53,7 +53,7 @@ int main() {
         lny[i] = std::log(y[i]);    // taking ln(y)
         dlny[i] = dy[i] / y[i];     // computing delta ln(y)
     }
-    pp::vector fit = pp::lsfit(fs, t, lny, dlny);   // getting fit parameters
+    auto [fit, sigma] = pp::lsfit(fs, t, lny, dlny);   // getting fit parameters + uncertainties
     double lna = fit[0];
     double lambda = fit[1];
     std::cout<<"Fitting data to ln(y)=ln(a)-λt\n\tln(a) = "<<lna<<"\n\tλ = "<<-1*lambda<<"\n";
@@ -72,9 +72,26 @@ int main() {
     
 
     // Compute half-life
-    double half_life = -std::log(2)/lambda;
+    double half_life = -1*std::log(2)/lambda;
     std::cout<<"Half-life of fit: "<<half_life<<" days \n";
     // 224 Ra half-life: 3.6316(23) days
     std::cout<<"Half-life of 224Ra: 3.6316(23) days \n";
+
+
+
+    std::cout<<"\n\n\n======= UNCERTAINTIES OF THE FITTING PARAMETERS =======\n";
+    sigma.print("Uncertainty matrix:");
+    double lna_err = std::sqrt(sigma[0][0]);
+    double lambda_err = std::sqrt(sigma[1][1]);
+    std::cout<<"\t ln(a) error = "<<lna_err<<"\n";
+    std::cout<<"\t λ error = "<<lambda_err<<"\n";
+
+    //Using error propagation, T_1/2_err = |d/dλ T_1/2| * λ_err = ln(2)/λ^2 * λ_err, so:
+    double half_life_err = std::log(2)/lambda/lambda * lambda_err;
+    std::cout<<"\nUsing error propagation:\n\tHalf-life error = "<<half_life_err<<"\n";
+    std::cout<<"\nThus, fit half-life: "<<half_life<<" ± "<<half_life_err<<"\n";
+    std::cout<<"It does not quite agree with the modern value... ☹";
+
+
     return 0;
 }

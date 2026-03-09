@@ -57,11 +57,11 @@ int main() {
 	std::cout<<"\n\n\n"<<"======== TESTING QR SOLVE ========"<<"\n";
 	
 	// ----- 1. Generate random square matrix -----
-	pp::matrix A2(n, n);
+	pp::matrix B(n, n);
     for (int i = 0; i < n; ++i)
         for (int j = 0; j < n; ++j)
-            A2(i,j) = dist(gen);
-    A2.print("Random square matrix B =");
+            B(i,j) = dist(gen);
+    B.print("Random square matrix B =");
 
 	// ----- 2. Random vector -----
 	pp::vector b(n);
@@ -70,20 +70,20 @@ int main() {
 	}
 	b.print("Random vector b =");
 
-	// ----- 3. Factorize A -----
-	pp::qr decomp2(A2);
+	// ----- 3. Factorize B -----
+	pp::qr decomp2(B);
 
 	// ----- 4. Solve QRx = b -----
 	pp::vector x = decomp2.solve(b);
 	x.print("Solving QRx = b: \nx = ");
 
-	// ----- 5. Check Ax = b -----
-	pp::vector Ax(n);
+	// ----- 5. Check Bx = b -----
+	pp::vector Bx(n);
 	for (int i=0; i < n; i++){
-		Ax[i] = pp::dot(A2.transpose()[i], x);
+		Bx[i] = pp::dot(B.transpose()[i], x);
 	}
 	std::cout<<"Is Bx = b? ";
-	pp::vector check = Ax - b;
+	pp::vector check = Bx - b;
     bool test = true;
     for (int i = 0; i < n; i++){
         if (check[i] > 1e-10) {test = false;}
@@ -98,13 +98,13 @@ int main() {
 
 
 	std::cout<<"\n\n\n"<<"======== INVERSE OF MATRIX ========"<<"\n";
-    A2.print("Random square matrix B:");
-    pp::matrix A_inv = decomp2.inverse();
-    A_inv.print("Inverse of matrix B:");
+    B.print("Random square matrix B:");
+    pp::matrix B_inv = decomp2.inverse();
+    B_inv.print("Inverse of matrix B:");
 
-    pp::matrix AA_inv = A2 * A_inv;
-    AA_inv.threshold();
-    AA_inv.print("B * B_inv = I?");
+    pp::matrix BB_inv = B * B_inv;
+    BB_inv.threshold();
+    BB_inv.print("B * B_inv = I?");
 
     return 0;
 }

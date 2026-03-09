@@ -61,8 +61,7 @@ struct qr {
 
 		for (int i = 0; i < m; i++) {
 			vector e(m);
-			for (int j = 0; j < m; j++)
-				e[j] = (i == j) ? 1.0 : 0.0;
+			e[i] = 1.0;
 
 			vector col = solve(e);
 

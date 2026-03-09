@@ -24,9 +24,8 @@ struct qr {
             }
         }
     }
-	vector solve(vector b){
-		int m = R.size1();  // R is m x m
-		vector y = Q.transpose() * b;  // y = Q^T * b
+    vector backsub(const vector& y){
+        int m = R.size1();  // R is m x m
 		vector x(m);
 
 		// Back substitution
@@ -38,6 +37,10 @@ struct qr {
 			x[i] /= R(i, i);
 		}
 		return x;
+    }
+	vector solve(const vector& b){
+		vector y = Q.transpose() * b;  // y = Q^T * b
+		return backsub(y);
 	}
 	double det(){
 		int m = R.size1();
@@ -61,8 +64,7 @@ struct qr {
 
 		for (int i = 0; i < m; i++) {
 			vector e(m);
-			for (int j = 0; j < m; j++)
-				e[j] = (i == j) ? 1.0 : 0.0;
+            e[i] = 1.0;
 
 			vector col = solve(e);
 
@@ -72,6 +74,22 @@ struct qr {
 
 		return inv;
 	}
+    matrix R_inverse(){
+        int m = R.size1();
+		matrix inv(m, m);
+
+		for (int i = 0; i < m; i++) {
+			vector e(m);
+            e[i] = 1.0;
+
+			vector col = backsub(e);
+
+			for (int j = 0; j < m; j++)
+				inv(j, i) = col[j];  // store as column i
+		}
+
+		return inv;
+    }
 };
 
 }

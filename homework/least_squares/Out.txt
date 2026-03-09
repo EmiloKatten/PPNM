@@ -26,3 +26,18 @@ Fitting data to ln(y)=ln(a)-λt
 	λ = 0.170624
 Half-life of fit: 4.06242 days 
 Half-life of 224Ra: 3.6316(23) days 
+
+
+
+======= UNCERTAINTIES OF THE FITTING PARAMETERS =======
+Uncertainty matrix:
+ 0.0012533 -0.00019706 
+-0.00019706 5.1217e-05 
+	 ln(a) error = 0.0354019
+	 λ error = 0.00715662
+
+Using error propagation:
+	Half-life error = 0.170394
+
+Thus, fit half-life: 4.06242 ± 0.170394
+It does not quite agree with the modern value... ☹
