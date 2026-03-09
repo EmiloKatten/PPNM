@@ -49,9 +49,8 @@ int main() {
 
     // ----- 5. Check QR = A -----
     pp::matrix QR = Q * R;
-	pp::matrix diff = QR - A;
-	diff.threshold();
-	diff.print("Is QR = A, then QR - A = 0:");
+    bool check_QR = pp::approx(QR, A);
+    std::cout<<"Is QR = A? " << (check_QR ? "TRUE\n" : "FALSE\n");
 
 
 

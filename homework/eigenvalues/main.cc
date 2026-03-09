@@ -168,6 +168,7 @@ int main(int argc,char** argv){
     }
 
     std::ofstream file("eigenfunctions.txt");
+    file<<"0 "<<"0 "<<"0 "<<"0 "<<"0 "<<"0 "<<"0\n";
     double Const=1/std::sqrt(dr);
     for(int i=0;i<npoints;i++){
         file<<r[i];
@@ -175,14 +176,17 @@ int main(int argc,char** argv){
             double f=Const*V_H(i,idx[k]);
             file<<" "<<f;
         }
-        double f1 = 2*r[i]*std::exp(-r[i]);
+        double factor = V_H[0][0]>0 ? 1:-1;
+        double f1 = 2*r[i]*std::exp(-r[i])*factor;
         file<<" "<<f1;
+        factor = V_H[1][0]>0 ? 1:-1;
         double f2 = 1/std::sqrt(2)*r[i]*(1-r[i]/2.0)
-                    * std::exp(-r[i]/2.0);// * Const;
+                    * std::exp(-r[i]/2.0)*factor;
         file<<" "<<f2;
+        factor = V_H[2][0]>0 ? 1:-1;
         double f3 = 2.0/3.0/std::sqrt(3)*r[i]
                     * (1-2*r[i]/3.0+2*r[i]*r[i]/27.0)
-                    * std::exp(-r[i]/3.0); // * Const;
+                    * std::exp(-r[i]/3.0)*factor;
         file<<" "<<f3;
 
         file<<"\n";

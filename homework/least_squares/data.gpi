@@ -1,0 +1,10 @@
+set terminal svg background rgb "white"
+set output "data.svg"
+set title "Exponential Decay" font ",14"
+set xlabel "time (days)"
+set ylabel "Activity of ThX (relative units)"
+set key right top
+set tics out
+plot \
+     "data.txt" using 1:2:3 with yerrorbars title "data" lw 1 pt 7,\
+     "data.txt" using 1:4 with lines title "fit" lw 2 lc rgb "red"

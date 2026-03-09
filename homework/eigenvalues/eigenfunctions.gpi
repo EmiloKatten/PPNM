@@ -14,7 +14,7 @@ plot \
 	"eigenfunctions.txt" using 1:2 with lines ls 1 title "k=0",\
 	"eigenfunctions.txt" using 1:3 with lines ls 2 title "k=1",\
 	"eigenfunctions.txt" using 1:4 with lines ls 3 title "k=2",\
-	"eigenfunctions.txt" using 1:5 with lines ls 4 title "analytical l=0",\
-	"eigenfunctions.txt" using 1:6 with lines ls 5 title "analytical l=1",\
-	"eigenfunctions.txt" using 1:7 with lines ls 6 title "analytical l=2"
+	"eigenfunctions.txt" using 1:5 with lines ls 4 title "analytical n=1",\
+	"eigenfunctions.txt" using 1:6 with lines ls 5 title "analytical n=2",\
+	"eigenfunctions.txt" using 1:7 with lines ls 6 title "analytical n=3"
 	
