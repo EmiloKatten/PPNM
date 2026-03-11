@@ -57,17 +57,17 @@ int main() {
     double lna = fit[0];
     double lambda = fit[1];
     std::cout<<"Fitting data to ln(y)=ln(a)-λt\n\tln(a) = "<<lna<<"\n\tλ = "<<-1*lambda<<"\n";
-    pp::vector fit_lny(y.size());
-    pp::vector fit_y(y.size());
-    for (int i=0; i < y.size(); i++){
-        fit_lny[i] = lna + lambda*t[i];
-        fit_y[i] = std::exp(fit_lny[i]);
-    }
 
     //  writing to data file
-    std::ofstream file("data.txt");
+    std::ofstream file_data("data.txt");
     for (int i=0; i < t.size(); i++){
-        file<<t[i]<<" "<<y[i]<<" "<<dy[i]<<" "<<fit_y[i]<<"\n";
+        file_data<<t[i]<<" "<<y[i]<<" "<<dy[i]<<" "<<"\n";
+    }
+    std::ofstream file_fit("fit.txt");
+    for (double i=t[0]; i < t[t.size()-1]; i+=0.1){ //smooth fit
+        double fit_lny = lna + lambda*i;
+        double fit_y = std::exp(fit_lny);
+        file_fit<<i<<" "<<fit_y<<"\n";
     }
     
 
