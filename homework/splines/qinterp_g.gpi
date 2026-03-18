@@ -1,0 +1,13 @@
+set terminal svg background rgb "white"
+set output "qinterp_g.svg"
+set title "Quadratic Interpolation" font ",14"
+set xlabel "x"
+set ylabel "y"
+set key left top
+set tics out
+set style line 1 lc rgb "blue" dt solid lw 2
+set style line 2 lc rgb "blue" dt 2 lw 2
+plot \
+     "qdata.txt" using 1:3 with points pt 7 title "g(x)=cos(3x) * x^2 + 10", \
+     "qinterp.txt" using 1:8 with lines ls 1 title "g interp",\
+     "qinterp.txt" using 1:9 with lines ls 2 title "g"

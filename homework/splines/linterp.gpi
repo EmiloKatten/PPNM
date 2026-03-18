@@ -1,0 +1,11 @@
+set terminal svg background rgb "white"
+set output "linterp.svg"
+set title "Linear Interpolation" font ",14"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot \
+     "ldata.txt" using 1:2 with points pt 7 title "data",\
+     "linterp.txt" using 1:2 with lines title "linear interpolation" lw 2 lc rgb "red",\
+     "linterp.txt" using 1:3 with lines title "integration" lw 2 lc rgb "blue"
