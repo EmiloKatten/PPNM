@@ -1,0 +1,2 @@
+Computing ODE: u'' = -u 
+cos(π) = -1, rkstep12 at π: -1.00013

@@ -1,0 +1,12 @@
+set terminal svg background rgb "white"
+set output "planets.svg"
+set xlabel "angle"
+set ylabel "radial coordinate"
+set key right top
+set tics out
+set size ratio -1
+
+plot \
+	 "data_planets1.txt" using (1/$2)*cos($1):(1/$2)*sin($1) with lines title "case 1"\
+	 ,"data_planets2.txt" using (1/$2)*cos($1):(1/$2)*sin($1) with lines title "case 2"\
+	 ,"data_planets3.txt" using (1/$2)*cos($1):(1/$2)*sin($1) with lines title "case 3"

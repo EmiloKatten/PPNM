@@ -1,0 +1,35 @@
+
+
+*******************************************************************************
+Wed Mar 25 13:46:28 2026
+
+
+FIT:    data read from "data_planets1.txt" using 1:2
+        format = x:z
+        #datapoints = 9
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a + b*x
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 7.3348437500e+02   0.00e+00  6.42e+00    1.000000e+00   1.000000e+00
+BREAK: Singular matrix in Invert_RtR
+
+*******************************************************************************
+Wed Mar 25 13:46:50 2026
+
+
+FIT:    data read from "data_planets1.txt" using 1:2
+        format = x:z
+        #datapoints = 9
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a + b*x
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 7.3348437500e+02   0.00e+00  6.42e+00    1.000000e+00   1.000000e+00
+BREAK: Singular matrix in Invert_RtR
