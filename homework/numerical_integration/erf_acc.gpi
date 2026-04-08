@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "erf_acc.svg"
+set xlabel "accuracy"
+set ylabel "absolute error (erf(1))"
+set logscale xy
+set key right bottom
+set tics out
+plot \
+	 "data_erf_acc.txt" using 1:2 with lines title "data"\

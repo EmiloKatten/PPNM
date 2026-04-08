@@ -1,0 +1,11 @@
+sqrt(x): q=0.666954.   Within accuracy: true.   ncalls=16
+1/sqrt(x): q=1.99996.   Within accuracy: true.   ncalls=8572
+sqrt(1-x^2): q=0.785812.   Within accuracy: true.   ncalls=16
+log(x)/sqrt(x): q=-3.99992.   Within accuracy: true.   ncalls=8604
+
+Now using variable transformation (Clenshaw-Curtis)
+1/sqrt(x): q=1.99999.   ordinary ncalls=8572,   variable transformation ncalls=16,   python ncalls=231
+log(x)/sqrt(x): q=-3.99987.   ordinary ncalls=8604,   variable transformation ncalls=96,   python ncalls=315
+
+ Testing infinite integral.
+exp(-x) from 0 to inf: q=1.   Within accuracy: true.   ncalls=88,   python ncalls=135
