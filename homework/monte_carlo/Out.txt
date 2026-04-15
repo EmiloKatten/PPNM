@@ -1,0 +1,21 @@
+EXERCISE A
+
+Unit circle integral...
+	Estimated area = 3.14009
+	Estimated error = 0.00164323
+	Actual value = 3.14159
+	Actual error = 0.00150065
+
+Difficult integral...
+	Estimated value = 1.39438
+	Estimated error = 0.0101376
+	Actual value = 1.3932
+	Actual error = 0.00117306
+
+
+EXERCISE B
+
+Unit circle integral...
+	Estimated area = 3.14155
+	Actual value = 3.14159
+	Actual error = 4.06536e-05
