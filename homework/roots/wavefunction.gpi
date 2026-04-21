@@ -1,0 +1,9 @@
+set terminal svg background rgb "white"
+set output "wavefunction.svg"
+set xlabel "r"
+set ylabel "f(r)"
+set key right bottom
+set tics out
+plot \
+	 "wavefunction.txt" using 1:2 with lines title "Numerical"\
+     ,"wavefunction.txt" using 1:3 with lines title "Exact"  

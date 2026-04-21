@@ -1,0 +1,42 @@
+EXERCISE A
+
+quick debugging: root of x^2-4: 2.00008
+Rosenbrock's valley function, extremum:
+	x=0.999937
+	y=0.999856
+Himmelblau's function, minimum:
+	x=-2.80512
+	y=3.13131
+	(the function has four identical minima (of 0.0), I've just found one)
+
+
+EXERCISE B
+
+Debugging:
+E = -1   M(E) = 1099.32
+E = -0.5 M(E) = -0.00347683
+E =  0   M(E) = 0.469321
+Finding the lowest root (E0): -0.500062
+
+Checking for convergence, E0=-0.5
+Standard values: rmin=0.001, rmax=8, acc=0.01, eps=0.01
+Altering rmin:
+	rmin=1, E=-0.16926
+	rmin=0.2, E=-0.514519
+	rmin=0.04, E=-0.500153
+	rmin=0.008, E=-0.500046
+Altering rmax:
+	rmax=2, E=-0.131527
+	rmax=4, E=-0.483464
+	rmax=6, E=-0.499331
+	rmax=8, E=-0.500062
+Altering accuracy:
+	acc=1, E=-0.510234
+	acc=0.2, E=-0.503381
+	acc=0.04, E=-0.50041
+	acc=0.008, E=-0.500043
+Altering epsilon:
+	eps=1, E=-0.506103
+	eps=0.2, E=-0.502333
+	eps=0.04, E=-0.500268
+	eps=0.008, E=-0.500051
