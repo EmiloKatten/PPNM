@@ -21,24 +21,6 @@ namespace pp{
 
     }
 
-    /*def newton(f,x,acc=1e-2,alpha_min=1e-3,max_iter=100) :
-	fx=f(x)
-	for _ in range(max_iter) :
-		if norm(fx) < acc : break
-		J=Jacobian(f,x,fx)
-		QRJ = QRdecomposition(J)
-		Dx = QRJ.solve(-fx) # Newton's step
-		alpha=1
-		while True : # linesearch
-			z=x+alpha*Dx
-			fz=f(z)
-			if norm(fz)<(1-alpha/2)*norm(fx) : break
-			if alpha < alpha_min : break # accept the bad step anyway
-			alpha/=2
-		x=z
-		fx=fz;
-	return x;*/
-
     vector newton(std::function<vector(vector)> f, vector x, double acc=1e-2, double alpha_min=1e-3, int max_iter=1e3){
         vector fx = f(x);
         for (int i = 0; i<max_iter; i++){
