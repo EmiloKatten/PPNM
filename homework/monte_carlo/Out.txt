@@ -5,17 +5,17 @@ Unit circle integral...
 	Estimated error = 0.00164323
 	Actual value = 3.14159
 	Actual error = 0.00150065
-
-Difficult integral...
-	Estimated value = 1.39438
-	Estimated error = 0.0101376
-	Actual value = 1.3932
-	Actual error = 0.00117306
+3D ellipsoid...
+	Estimated volume = 25.1336
+	Estimated error = 0.0239732
+	Actual value = 25.1327
+	Actual error = 0.000874771
 
 
 EXERCISE B
 
-Unit circle integral...
-	Estimated area = 3.14155
-	Actual value = 3.14159
-	Actual error = 4.06536e-05
+Difficult integral...
+	Actual value = 1.3932
+	Estimated value (LCG)= 1.38545 error = 0.00775441
+	Estimated value (STD)= 1.3921 error = 0.00110589
+	Estimated value (quasi)= 1.39064, error = 0.00256054

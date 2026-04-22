@@ -5,8 +5,8 @@ set ylabel "error"
 set key right top
 set logscale xy
 set tics out
+set title "Error on volume of unit circle"
 plot \
 	 "data_error.txt" using 1:2 with lines title "pseudo-random est. error",\
 	 "data_error.txt" using 1:3 with lines title "pseudo-random act. error",\
-	 "data_error.txt" using 1:4 with lines title "1/sqrt(N)",\
-	 "quasi_error.txt" using 1:2 with lines title "quasi-random act. error"\
+	 "data_error.txt" using 1:4 with lines title "1/sqrt(N)"\

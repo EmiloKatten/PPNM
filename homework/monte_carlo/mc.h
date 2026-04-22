@@ -6,6 +6,16 @@ using vec = std::vector<double>;
 
 namespace pp
 {
+    // made rand01 with help from chatbot //
+    template<typename RNG>
+    double rand01(RNG& rng) {
+        if constexpr (requires { rng.next(); }) {
+            return rng.next();  // support .next()
+        } else {
+            static std::uniform_real_distribution<double> dist(0.0, 1.0);
+            return dist(rng);   // std RNG
+        }
+    }
 
     std::vector<int> prime_numbers(int n){
         std::vector<int> primes; int candidate = 2;
@@ -21,7 +31,7 @@ namespace pp
         return primes;
     };
 
-    std::pair<double,double> plainmc(auto f, vec a, vec b, int N, auto rng){
+    std::pair<double,double> plainmc(auto f, vec a, vec b, int N, auto& rng){
         int dim = a.size();
         double V = 1.0; 
         for(int i=0; i<dim; i++){V*=b[i]-a[i];};
@@ -30,7 +40,7 @@ namespace pp
         vec x(dim);
         for(int i=0; i<N; i++){
             for(int k=0; k<dim; k++){
-                x[k] = a[k] + rng.next() * (b[k] - a[k]);
+                x[k] = a[k] + rand01(rng) * (b[k] - a[k]);
             }
             double fx = f(x); sum1 += fx; sum2 += fx*fx;
         }
@@ -48,7 +58,7 @@ namespace pp
         vec x(dim);
         std::vector<int> base = prime_numbers(dim);
 
-        for(int i=0; i<N; i++){
+        for(int i=1; i<N; i++){
             for(int k=0; k<dim; k++){
                 
                 int n = i; double q = 0.0; int b0 = base[k]; double bk = 1.0/b0;

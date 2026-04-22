@@ -3,7 +3,7 @@ LDLIBS += -lstdc++ -lm
 
 default: Out.txt error.svg
 
-Out.txt data_error.txt quasi_error.txt: main 
+Out.txt data_error.txt : main 
 	./main > Out.txt
 	
 main : main.o 
