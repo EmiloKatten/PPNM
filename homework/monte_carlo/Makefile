@@ -9,7 +9,7 @@ Out.txt data_error.txt : main
 main : main.o 
 main.o : main.cc mc.h lcg.h
 
-error.svg : error.gpi data_error.txt quasi_error.txt
+error.svg : error.gpi data_error.txt
 	gnuplot $<
 
 
