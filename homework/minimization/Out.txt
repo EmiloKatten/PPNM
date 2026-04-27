@@ -1,0 +1,17 @@
+EXERCISE A
+
+Minimum of Rosenbrock's vally (x,y): 1.00002 1.00004 
+	 Correct minima: (1,1)
+	 # of steps: 15
+A minimum of Himmelblau's vally (x,y): 3 2 
+	 Correct minima: (3,2)
+	 # of steps: 7
+
+
+EXERCISE B
+
+Optimal parameters:
+	m = 125.972
+	Γ = 2.08614
+	A = 9.87526
+# of steps: 8

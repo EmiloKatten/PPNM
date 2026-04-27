@@ -1,0 +1,10 @@
+set terminal svg background rgb "white"
+set output "higgs.svg"
+set title "Breit-Wigner function" font ",14"
+set xlabel "Energy [GeV]"
+set ylabel "Signal σ(E) [certain units]"
+set key right top
+set tics out
+plot \
+     "higgs.dat" using 1:2:3 with yerrorbars title "data" lw 1 pt 7,\
+     "fit.txt" using 1:2 with lines title "fit" lw 2 lc rgb "red"
