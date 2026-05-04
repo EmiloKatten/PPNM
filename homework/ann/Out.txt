@@ -1,0 +1,15 @@
+EXERCISE A
+
+g(x)=cos(5x-1)*exp(-x^2)
+Finished training
+	g(0)=0.540302, f(0)=0.544117
+
+
+EXERCISE B
+
+Computing derivatives and anti-derivative
+	g'(0.5)=-3.93934, f'(0.5)=-3.99659
+	g''(0.5)=6.33615, f''(0.5)=6.18903
+	G(0.5)=0.158085, F(0.5)=-0.0512905
+The anti-derivative looks correct, but it's missing an offset factor
+This could have been implemented with a bias parameter

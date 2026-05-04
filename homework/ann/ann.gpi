@@ -1,0 +1,12 @@
+set terminal svg background rgb "white"
+set output "ann.svg"
+set title "Neural Network" font ",14"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot \
+     "data.txt" using 1:2 with points title "g(x) = cos(5x-1) * exp(-x^2)" lw 1 pt 7,\
+     "fit.txt" using 1:2 with lines title "fit (nn)" lw 2 lc rgb "red",\
+     "integral.txt" using 1:2 with lines title "anti-derivative (nn)" lw 2 lc rgb "blue"
+
