@@ -10,6 +10,7 @@ timing.svg : timing.gpi timing.data
 
 clean:
 	$(RM) main *.o *.txt *.data *.svg
+	
 test:
 	echo $(findstring clang++,$(CXX)) 
 	echo $(CXX)

@@ -1,6 +1,8 @@
 #include<random>
 #include<iostream>
 #include<fstream>
+#include<chrono>
+#include<fstream>
 #include"matrix.h"
 #include"evd.h"
 
@@ -192,6 +194,37 @@ int main(int argc,char** argv){
         file<<"\n";
     }
 
+
+    std::cout << "\n\n\n======== EXERCISE C: TIMING EVD ========\n";
+
+    std::ofstream timingfile("timing.data");
+
+    for(int N = 50; N <= 500; N += 50){
+
+        pp::matrix T(N,N);
+        for(int i = 0; i < N; ++i){
+            for(int j = i; j < N; ++j){
+                double value = dist(gen);
+                T(i,j) = value;
+                T(j,i) = value;
+            }
+        }
+
+        // help from chatbot with timing
+        auto start = std::chrono::high_resolution_clock::now();
+
+        pp::EVD evdT(T);
+
+        auto stop = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double> elapsed = stop - start;
+
+        timingfile << N << " " << elapsed.count() << "\n";
+
+        std::cout << "N = " << N << ", time = " << elapsed.count() << " sec\n";
+    }
+
+    timingfile.close();
 
 
     return 0;

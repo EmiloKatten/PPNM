@@ -1,0 +1,14 @@
+set terminal svg background rgb "white"
+set output "timing.svg"
+set title "Timing EVD" font ",14"
+set xlabel "N"
+set ylabel "Time [s]"
+set key left top
+set tics out
+
+f(x) = a*x**3
+fit f(x) "timing.data" using 1:2 via a
+
+plot \
+     "timing.data" using 1:2 with lines lw 3 title "data", \
+     f(x) with lines dt 2 lw 3 title "a*N^3" \
