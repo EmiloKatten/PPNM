@@ -72,3 +72,17 @@ B * B_inv = I?
          0          0          0          1          0          0 
          0          0          0          0          1          0 
          0          0          0          0          0          1 
+
+
+
+======== EXERCISE C: TIMING QR ========
+N = 100, time = 0.00968938 sec
+N = 200, time = 0.0658425 sec
+N = 300, time = 0.222946 sec
+N = 400, time = 0.524765 sec
+N = 500, time = 1.02455 sec
+N = 600, time = 1.77775 sec
+N = 700, time = 2.716 sec
+N = 800, time = 4.02302 sec
+N = 900, time = 5.71437 sec
+N = 1000, time = 7.8229 sec

@@ -1,12 +1,14 @@
 #include <iostream>
 #include <cmath>
 #include <random>
+#include <chrono>
+#include <fstream>
 #include "matrix.h"
 #include "qr.h"
 
 int main() {
 
-	std::cout<< "======== TESTING QR CLASS========"<<"\n";
+    std::cout<< "======== TESTING QR CLASS========"<<"\n";
     // ----- 1. Generate random tall matrix A -----
     int n = 6;
     int m = 3;
@@ -39,13 +41,13 @@ int main() {
                 upper = false;
 
     std::cout << "R upper triangular: "
-              << (upper ? "TRUE\n" : "FALSE\n");
+            << (upper ? "TRUE\n" : "FALSE\n");
 
     // ----- 4. Check Q^T Q = I -----
     pp::matrix Qt = Q.transpose();
     pp::matrix QtQ = Qt * Q;
-	QtQ.threshold();
-	QtQ.print("Q^T Q = I ?");
+    QtQ.threshold();
+    QtQ.print("Q^T Q = I ?");
 
     // ----- 5. Check QR = A -----
     pp::matrix QR = Q * R;
@@ -54,36 +56,36 @@ int main() {
 
 
 
-	std::cout<<"\n\n\n"<<"======== TESTING QR SOLVE ========"<<"\n";
-	
-	// ----- 1. Generate random square matrix -----
-	pp::matrix B(n, n);
+    std::cout<<"\n\n\n"<<"======== TESTING QR SOLVE ========"<<"\n";
+    
+    // ----- 1. Generate random square matrix -----
+    pp::matrix B(n, n);
     for (int i = 0; i < n; ++i)
         for (int j = 0; j < n; ++j)
             B(i,j) = dist(gen);
     B.print("Random square matrix B =");
 
-	// ----- 2. Random vector -----
-	pp::vector b(n);
+    // ----- 2. Random vector -----
+    pp::vector b(n);
     for (int i = 0; i < n; i++){
         b[i] = dist(gen);
-	}
-	b.print("Random vector b =");
+    }
+    b.print("Random vector b =");
 
-	// ----- 3. Factorize B -----
-	pp::qr decomp2(B);
+    // ----- 3. Factorize B -----
+    pp::qr decomp2(B);
 
-	// ----- 4. Solve QRx = b -----
-	pp::vector x = decomp2.solve(b);
-	x.print("Solving QRx = b: \nx = ");
+    // ----- 4. Solve QRx = b -----
+    pp::vector x = decomp2.solve(b);
+    x.print("Solving QRx = b: \nx = ");
 
-	// ----- 5. Check Bx = b -----
-	pp::vector Bx(n);
-	for (int i=0; i < n; i++){
-		Bx[i] = pp::dot(B.transpose()[i], x);
-	}
-	std::cout<<"Is Bx = b? ";
-	pp::vector check = Bx - b;
+    // ----- 5. Check Bx = b -----
+    pp::vector Bx(n);
+    for (int i=0; i < n; i++){
+        Bx[i] = pp::dot(B.transpose()[i], x);
+    }
+    std::cout<<"Is Bx = b? ";
+    pp::vector check = Bx - b;
     bool test = true;
     for (int i = 0; i < n; i++){
         if (check[i] > 1e-10) {test = false;}
@@ -91,13 +93,12 @@ int main() {
     std::cout<< (test ? "TRUE" : "FALSE") <<"\n";
 
 
-	std::cout<<"\n\n\n"<<"======== DETERMINANT OF R ========"<<"\n";
+    std::cout<<"\n\n\n"<<"======== DETERMINANT OF R ========"<<"\n";
     R.print("R:");
     std::cout<<"Det. of R: "<<decomp.det()<<"\n";
 
 
-
-	std::cout<<"\n\n\n"<<"======== INVERSE OF MATRIX ========"<<"\n";
+    std::cout<<"\n\n\n"<<"======== INVERSE OF MATRIX ========"<<"\n";
     B.print("Random square matrix B:");
     pp::matrix B_inv = decomp2.inverse();
     B_inv.print("Inverse of matrix B:");
@@ -105,6 +106,37 @@ int main() {
     pp::matrix BB_inv = B * B_inv;
     BB_inv.threshold();
     BB_inv.print("B * B_inv = I?");
+
+
+
+    std::cout << "\n\n\n======== EXERCISE C: TIMING QR ========\n";
+
+    std::ofstream timingfile("timing.data");
+
+    for(int N = 100; N <= 1000; N += 100){
+
+        pp::matrix T(N,N);
+
+        for(int i = 0; i < N; ++i)
+            for(int j = 0; j < N; ++j)
+                T(i,j) = dist(gen);
+
+        // help from chatbot with the timer
+        auto start = std::chrono::high_resolution_clock::now();
+
+        pp::qr timing_test(T);
+
+        // ---- STOP TIMER ----
+        auto stop = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double> elapsed = stop - start;
+
+        timingfile << N << " " << elapsed.count() << "\n";
+
+        std::cout << "N = " << N << ", time = " << elapsed.count() << " sec\n";
+    }
+
+    timingfile.close();
 
     return 0;
 }
