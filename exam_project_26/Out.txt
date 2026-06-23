@@ -1,0 +1,69 @@
+===DEBUGGING===
+
+For debugging, let's find a root of the Himmelblau's function using analytical Jacobian:
+	x=-2.80512
+	y=3.13131
+(the function has four identical minima (of 0.0), I've just found one)
+
+
+
+===TIMING===
+
+Investigating the scaling of rootfinding using analytical Jacobian.
+
+From the lecture notes, newton rootfinding scales as O(n^2), while QR-decomposition
+scales as O(n^3) for a symmetric matrix. Thus we should expect a scaling of O(n^3).
+
+	N = 30,   time = 0.00734872 sec,   # of calls =14
+	N = 60,   time = 0.0389497 sec,   # of calls =12
+	N = 90,   time = 0.128027 sec,   # of calls =13
+	N = 120,   time = 0.359132 sec,   # of calls =16
+	N = 150,   time = 0.928264 sec,   # of calls =22
+	N = 180,   time = 1.56474 sec,   # of calls =22
+	N = 210,   time = 2.22999 sec,   # of calls =20
+	N = 240,   time = 2.79289 sec,   # of calls =17
+	N = 270,   time = 4.63529 sec,   # of calls =20
+	N = 300,   time = 8.24426 sec,   # of calls =26
+
+Realistically, the size of the matrix should be no larger than N=300, since
+it becomes too expensive and time consuming.
+
+
+
+===HYDROGEN HAMILTONIAN===
+
+Using the optimized newton rootfinding, let's try
+to compute several lower states of the Hydrogen atom.
+
+For hydrogen, the energy in atomic units is: 
+	E_n = -1/(2n^2),
+where n is the shell number. Taking the three lowest states:
+	E_1 = -1/2 = -0.5
+	E_2 = -1/8 = -0.125
+	E_3 = -1/18 = -0.0555
+
+Using newton rootfinding, the eigenvalues of the hamiltonians: 
+	n=1 : -0.495098
+	n=2 : -0.124689
+	n=3 : -0.0553608
+Time for evaluation: 0.290027ss
+
+
+
+===OPTIMIZED LINE SEARCH===
+
+Doing a taylor expansion of F(x+alpha*dx) around x yields F(x) + alpha*J(x)*dx
+Minimizing the linearized prediction phi(alpha) = ||F(x) + alpha*J(x)*dx||^2
+provides an optimal alpha = - dot(F(x),J*dx) / dot(J*dx,J*dx) 
+
+Timing again using optimized alpha:
+	N = 30,   time = 0.00531735 sec,   # of calls =10
+	N = 60,   time = 0.0517934 sec,   # of calls =16
+	N = 90,   time = 0.148433 sec,   # of calls =15
+	N = 120,   time = 0.683022 sec,   # of calls =31
+	N = 150,   time = 0.796628 sec,   # of calls =19
+	N = 180,   time = 1.42231 sec,   # of calls =20
+	N = 210,   time = 1.6697 sec,   # of calls =15
+	N = 240,   time = 3.50182 sec,   # of calls =21
+	N = 270,   time = 5.35652 sec,   # of calls =23
+	N = 300,   time = 9.18186 sec,   # of calls =29

@@ -1,0 +1,20 @@
+set terminal svg background rgb "white"
+set output "timing.svg"
+set title "Timing Newton Rootfinding" font ",14"
+set xlabel "Symmetric Matrix of Size n"
+set ylabel "Time (s)"
+set key left top
+set tics out
+
+f(x) = a*x**3
+g(x) = b*x**3
+a = 1
+b = 1
+fit f(x) "timing.data" using 1:2 via a
+fit g(x) "opt_timing.data" using 1:2 via b
+
+plot \
+     "timing.data" using 1:2 with lines title "data" lw 2,\
+     "opt_timing.data" using 1:2 with lines title "opt-data" lw 2,\
+     f(x) with lines title "O(n^3) fit" lw 2,\
+     g(x) with lines title "O(n^3) opt-fit" lw 2 
