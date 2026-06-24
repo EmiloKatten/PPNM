@@ -4,21 +4,9 @@
 
 namespace pp{
 
-    /* New routine - with help from chatbot */
-    // inline vector newton(std::function<vector(vector)> F, std::function<matrix(vector)> J_, vector x, double acc=1e-7){
-    //     vector fx=F(x);
-    //     while(fx.norm()>acc){
-    //         matrix J=J_(x);
-    //         qr QRJ(J);
-    //         vector Dx=QRJ.solve(-fx);
-    //         x += Dx;
-    //         fx=F(x);
-    //     }
-    //     return x;
-    // }
-    /* New routine, using analytical Jacobian */
+    // The newton rootfinding method using analytical jacobian and alpha backtracking
     inline std::pair<vector,int> newton(std::function<vector(vector)> F, std::function<matrix(vector)> J_,\
-                         vector x, double acc=1e-7, double alpha_min=1e-3, double max_iter = 1e3){
+                                        vector x, double acc=1e-6, double alpha_min=1e-3, double max_iter = 1e3){
         vector fx = F(x);
         int steps = 0;
         for (int i = 0; i<max_iter; i++){
@@ -118,74 +106,6 @@ namespace pp{
         auto [x_res, steps] = newton(F, J, x);
         x = x_res;
         
-        // return eigenvector and eigenvalue
-        vector v(n);
-        for (int i=0; i<n; i++){
-            v[i] = x[i];
-        }
-        double lambda = x[n];
-
-        return std::make_tuple(lambda, v, steps);
-    }; 
-
-
-
-    // Pick the best alpha that minimizes the linearized prediction of the residual norm - made with chatbot
-    inline double opt_alpha(const vector& f, const vector& Jp, double alpha_min){
-        double denom = pp::dot(Jp, Jp);
-        if (denom == 0.0) return 1.0;
-
-        double alpha = -(pp::dot(f, Jp)) / denom;
-
-        // safeguard
-        if (!std::isfinite(alpha)) alpha = 1.0;
-
-        // clamp to reasonable range
-        alpha = std::max(alpha, alpha_min);
-        alpha = std::min(alpha, 1.0);
-
-        return alpha;
-    };
-    inline std::pair<vector, int> opt_newton(std::function<vector(vector)> F, std::function<matrix(vector)> J_,\
-                                             vector x, double acc=1e-7, double alpha_min=1e-3, double max_iter = 1e3){
-        vector fx = F(x);
-        int n_steps = 0;
-        for (int i = 0; i<max_iter; i++){
-            if (fx.norm() < acc){break;}
-            matrix J = J_(x);
-            qr QRJ(J);
-            vector Dx = QRJ.solve(-fx);
-            vector Jp = J * Dx;
-
-            double alpha = opt_alpha(fx, Jp, alpha_min);
-
-            vector z = x+alpha*Dx;
-            vector fz = F(z);
-            x = z;
-            fx = fz;
-            n_steps+=1;
-        }
-        return {x, n_steps};
-    };
-    inline std::tuple<double,vector,int> opt_eigen_newton(const matrix& A, double lambda_start, vector& v_start){
-        int n = A.size1();
-        vector x(n+1);
-        for (int i=0; i<n; i++){
-            x[i] = v_start[i];
-        }
-        x[n] = lambda_start;
-
-        // making lambda functions to compute F and J
-        auto F = [&](vector y){
-            return eigen_f(A, y);
-        };
-        auto J = [&](vector y){
-            return eigen_J(A, y);
-        };
-
-        // use analytic newton rootfinding to update x:
-        auto [x_res,steps] = opt_newton(F, J, x);
-        x = x_res;
         // return eigenvector and eigenvalue
         vector v(n);
         for (int i=0; i<n; i++){

@@ -14,19 +14,47 @@ Investigating the scaling of rootfinding using analytical Jacobian.
 From the lecture notes, newton rootfinding scales as O(n^2), while QR-decomposition
 scales as O(n^3) for a symmetric matrix. Thus we should expect a scaling of O(n^3).
 
-	N = 30,   time = 0.00734872 sec,   # of calls =14
-	N = 60,   time = 0.0389497 sec,   # of calls =12
-	N = 90,   time = 0.128027 sec,   # of calls =13
-	N = 120,   time = 0.359132 sec,   # of calls =16
-	N = 150,   time = 0.928264 sec,   # of calls =22
-	N = 180,   time = 1.56474 sec,   # of calls =22
-	N = 210,   time = 2.22999 sec,   # of calls =20
-	N = 240,   time = 2.79289 sec,   # of calls =17
-	N = 270,   time = 4.63529 sec,   # of calls =20
-	N = 300,   time = 8.24426 sec,   # of calls =26
+	N = 30,   time = 0.00370044 sec,   # of calls =9
+	N = 60,   time = 0.0235002 sec,   # of calls =10
+	N = 90,   time = 0.0722188 sec,   # of calls =10
+	N = 120,   time = 0.21469 sec,   # of calls =13
+	N = 150,   time = 0.277284 sec,   # of calls =9
+	N = 180,   time = 0.636916 sec,   # of calls =12
+	N = 210,   time = 0.902257 sec,   # of calls =11
+	N = 240,   time = 1.33433 sec,   # of calls =11
+	N = 270,   time = 2.59681 sec,   # of calls =15
+	N = 300,   time = 3.75623 sec,   # of calls =16
 
 Realistically, the size of the matrix should be no larger than N=300, since
 it becomes too expensive and time consuming.
+See figure timing.svg for a plot of the time dependence.
+
+
+
+===NEWTON VS EVD===
+
+Newton rootfinding only finds one eigenvector and eigenvalue, while
+requiring good initial guesses. On the contrary, EVD does not require
+any guesses and finds all eigenpairs very efficiently. Both should
+scale as O(n^3). Comparing these directly:
+
+	N = 10.   Newton: 0.00022189s.   EVD: 0.00163904s
+	N = 20.   Newton: 0.00132138s.   EVD: 0.00175806s
+	N = 30.   Newton: 0.00260791s.   EVD: 0.00657345s
+	N = 40.   Newton: 0.00643185s.   EVD: 0.0152305s
+	N = 50.   Newton: 0.0127598s.   EVD: 0.0303976s
+	N = 60.   Newton: 0.0185365s.   EVD: 0.0535325s
+	N = 70.   Newton: 0.0318986s.   EVD: 0.0858813s
+	N = 80.   Newton: 0.0358427s.   EVD: 0.130027s
+	N = 90.   Newton: 0.0739183s.   EVD: 0.183193s
+	N = 100.   Newton: 0.0773066s.   EVD: 0.253313s
+
+EVD is slower, but has the advantage of finding all eigenpairs without
+requiring guesses. If we normalized the EVD times by matrix size n,
+EVD is vastly superior to newton per eigenpair. However, for very large
+matrices, if only one eigenpair is required and you have an inital guess,
+newton may be advantagous.
+comp_timing.svg plots the comparison.
 
 
 
@@ -41,29 +69,38 @@ where n is the shell number. Taking the three lowest states:
 	E_1 = -1/2 = -0.5
 	E_2 = -1/8 = -0.125
 	E_3 = -1/18 = -0.0555
+These will be our initial eigenvalue guesses. The intital guesses for
+eigenvectors are the well-established wavefunctions for s1, s2 and
+s3 of hydrogen.
 
-Using newton rootfinding, the eigenvalues of the hamiltonians: 
-	n=1 : -0.495098
-	n=2 : -0.124689
-	n=3 : -0.0553608
-Time for evaluation: 0.290027ss
+Using newton rootfinding, the eigenvalues of the hamiltonians (with rmax=30, dr=0.1):
+	n=1 : -0.498756,   error: 0.00124379
+	n=2 : -0.124922,   error: 7.80311e-05
+	n=3 : -0.0554079,   error: 0.000147636
+Time for evaluation: 1.40555ss
+See hamiltonian.svg for the probability density found with newton vs analytical solution.
 
 
 
-===OPTIMIZED LINE SEARCH===
+===NEWTON INSTABILITY===
 
-Doing a taylor expansion of F(x+alpha*dx) around x yields F(x) + alpha*J(x)*dx
-Minimizing the linearized prediction phi(alpha) = ||F(x) + alpha*J(x)*dx||^2
-provides an optimal alpha = - dot(F(x),J*dx) / dot(J*dx,J*dx) 
+Rootfinding with newton requires a good initial guess.
+To test instability to perturbation, we'll try to perturbe the
+analytical guess for hydrogen s2, by introducing components of 
+the eigenvectors for s1 and s3. Random noise will also be added.
+The initial guess of eigenvalue will also be perturbed by s1 and
+s3 eigenvalues.
+The resulting E_newton, error, E_guess, and number of calls:
 
-Timing again using optimized alpha:
-	N = 30,   time = 0.00531735 sec,   # of calls =10
-	N = 60,   time = 0.0517934 sec,   # of calls =16
-	N = 90,   time = 0.148433 sec,   # of calls =15
-	N = 120,   time = 0.683022 sec,   # of calls =31
-	N = 150,   time = 0.796628 sec,   # of calls =19
-	N = 180,   time = 1.42231 sec,   # of calls =20
-	N = 210,   time = 1.6697 sec,   # of calls =15
-	N = 240,   time = 3.50182 sec,   # of calls =21
-	N = 270,   time = 5.35652 sec,   # of calls =23
-	N = 300,   time = 9.18186 sec,   # of calls =29
+	eps=0: E_newton=-0.124922, error: 7.80311e-05, E_guess: -0.125. ncalls: 2
+	eps=0.1: E_newton=-0.124922, error: 7.80499e-05, E_guess: -0.140278. ncalls: 3
+	eps=0.2: E_newton=-0.124922, error: 7.80316e-05, E_guess: -0.155556. ncalls: 4
+	eps=0.3: E_newton=-0.124922, error: 7.80313e-05, E_guess: -0.170833. ncalls: 5
+	eps=0.4: E_newton=-0.124922, error: 7.80333e-05, E_guess: -0.186111. ncalls: 7
+	eps=0.5: E_newton=-0.0246305, error: 0.100369, E_guess: -0.201389. ncalls: 14
+
+We can clearly see, as epsilon increases, more steps are required
+for newton to converge. The eigenvalue guess increases, but newton
+still converges to the correct eigenvalue.
+Only for epsilon=0.5, the eigenpair guess makes the newton method fall
+into the wrong basin. The perturbation.svg figure shows this.

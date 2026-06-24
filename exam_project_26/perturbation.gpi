@@ -1,0 +1,15 @@
+set terminal svg background rgb "white"
+set output "perturbation.svg"
+set title "Newton rootfinding with perturbed guess" font ",18"
+set xlabel "Radial coordinate r" font ",14"
+set ylabel "ψ(r)" font ",14"
+set key right top
+set tics out
+
+set style line 1 lc rgb '#ff7f0e' dt solid lw 3
+set style line 2 lc rgb '#ff7f0e' dt 2 lw 1
+set style line 3 lc rgb '#ff7f0e' dt 4 lw 3
+plot \
+	"perturbation.data" using 1:2 with lines ls 1 title "newton s_2",\
+	"perturbation.data" using 1:4 with lines ls 3 title "analytical s_2",\
+	"perturbation.data" using 1:3 with lines ls 2 title "perturbed guess s_2",\

@@ -7,7 +7,9 @@
 #include"hamiltonian.h"
 
 void run_timing();
+void run_compare_timing();
 void hamiltonian();
+void instability();
 
 int main(){
 
@@ -56,7 +58,6 @@ int main(){
     
 
 
-
     /*
         Investigating the scaling of the updated rootfinding
     */
@@ -64,11 +65,29 @@ int main(){
     std::cout << "Investigating the scaling of rootfinding using analytical Jacobian.\n\n";
     std::cout << "From the lecture notes, newton rootfinding scales as O(n^2), while QR-decomposition\n"\
                  <<"scales as O(n^3) for a symmetric matrix. Thus we should expect a scaling of O(n^3).\n\n";
-    run_timing(false);
+    run_timing();
     std::cout << "\nRealistically, the size of the matrix should be no larger than N=300, since\n"\
               << "it becomes too expensive and time consuming.\n";
+    std::cout << "See figure timing.svg for a plot of the time dependence.\n";
 
     
+    /*
+        Comparing newton and EVD
+    */
+    std::cout<<"\n\n\n===NEWTON VS EVD===\n\n";
+    std::cout<< "Newton rootfinding only finds one eigenvector and eigenvalue, while\n"\
+             << "requiring good initial guesses. On the contrary, EVD does not require\n"\
+             << "any guesses and finds all eigenpairs very efficiently. Both should\n"
+             << "scale as O(n^3). Comparing these directly:\n\n";
+    run_compare_timing();
+    std::cout<< "\nEVD is slower, but has the advantage of finding all eigenpairs without\n"\
+             << "requiring guesses. If we normalized the EVD times by matrix size n,\n"\
+             << "EVD is vastly superior to newton per eigenpair. However, for very large\n"
+             << "matrices, if only one eigenpair is required and you have an inital guess,\n"\
+             << "newton may be advantagous.\n";
+    std::cout<< "comp_timing.svg plots the comparison.\n";
+
+
 
     /*
         Computing several lowest state eigenfunctions of the Hydrogen atom
@@ -78,20 +97,32 @@ int main(){
               << "to compute several lower states of the Hydrogen atom.\n\n";
     std::cout << "For hydrogen, the energy in atomic units is: \n\tE_n = -1/(2n^2),\n"\
               << "where n is the shell number. Taking the three lowest states:\n"\
-              << "\tE_1 = -1/2 = -0.5\n\tE_2 = -1/8 = -0.125\n\tE_3 = -1/18 = -0.0555\n\n";
+              << "\tE_1 = -1/2 = -0.5\n\tE_2 = -1/8 = -0.125\n\tE_3 = -1/18 = -0.0555\n"\
+              << "These will be our initial eigenvalue guesses. The intital guesses for\n"\
+              << "eigenvectors are the well-established wavefunctions for s1, s2 and\n"\
+              << "s3 of hydrogen.\n\n";
     hamiltonian();
-    
+    std::cout << "See hamiltonian.svg for the probability density found with newton vs analytical solution.\n"; 
+
 
     
     /*
-        Using an optimized alpha based on minimizing the norm in newton rootfinding wrt. alpha
+        Checking the instability of newton rootfinding.
     */
-    std::cout<<"\n\n\n===OPTIMIZED LINE SEARCH===\n\n";
-    std::cout << "Doing a taylor expansion of F(x+alpha*dx) around x yields F(x) + alpha*J(x)*dx\n"
-              << "Minimizing the linearized prediction phi(alpha) = ||F(x) + alpha*J(x)*dx||^2\n"\
-              << "provides an optimal alpha = - dot(F(x),J*dx) / dot(J*dx,J*dx) \n\n";
-    std::cout << "Timing again using optimized alpha:\n";
-    run_timing(true);
+    std::cout<<"\n\n\n===NEWTON INSTABILITY===\n\n";
+    std::cout << "Rootfinding with newton requires a good initial guess.\n"
+              << "To test instability to perturbation, we'll try to perturbe the\n"\
+              << "analytical guess for hydrogen s2, by introducing components of \n"\
+              << "the eigenvectors for s1 and s3. Random noise will also be added.\n"\
+              << "The initial guess of eigenvalue will also be perturbed by s1 and\n"\
+              << "s3 eigenvalues.\n"\
+              << "The resulting E_newton, error, E_guess, and number of calls:\n\n";
+    instability();
+    std::cout << "\nWe can clearly see, as epsilon increases, more steps are required\n"\
+              << "for newton to converge. The eigenvalue guess increases, but newton\n"\
+              << "still converges to the correct eigenvalue.\n"\
+              << "Only for epsilon=0.5, the eigenpair guess makes the newton method fall\n"\
+              << "into the wrong basin. The perturbation.svg figure shows this.\n";
 
     return 0;
 }

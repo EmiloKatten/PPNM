@@ -5,4 +5,5 @@
 #include<chrono>
 #include"root.h"
 
-void run_timing(bool opt_alpha=false);
+void run_timing();
+void run_compare_timing();

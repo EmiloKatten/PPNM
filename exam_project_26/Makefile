@@ -2,9 +2,9 @@ CXX = g++
 CXXFLAGS += -std=c++23 -Wall -Wextra #-DLONG_DOUBLE
 LDLIBS += -lstdc++ -lm
 
-default: Out.txt timing.data wavefunctions.data timing.svg wavefunctions.svg
+default: Out.txt  timing.svg comp_timing.svg wavefunctions.svg perturbation.svg
 
-Out.txt: main 
+Out.txt timing.data wavefunctions.data test.data: main 
 	./main > Out.txt
 	
 # main: main.o 
@@ -17,11 +17,15 @@ hamiltonian.o: hamiltonian.cc hamiltonian.h
 
 timing.svg : timing.gpi timing.data
 	gnuplot $<
+comp_timing.svg : comp_timing.gpi comp_timing.data
+	gnuplot $<
 wavefunctions.svg : wavefunctions.gpi wavefunctions.data
 	gnuplot $<
-
+perturbation.svg : perturbation.gpi perturbation.data
+	gnuplot $<
+	
 clean:
-	$(RM) main *.o *.txt *.svg
+	$(RM) main *.o *.txt *.data *.svg
 test:
 	echo $(findstring clang++,$(CXX)) 
 	echo $(CXX)
