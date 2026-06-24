@@ -99,7 +99,7 @@ int main(){
               << "eigenvectors are the well-established wavefunctions for s1, s2 and\n"\
               << "s3 of hydrogen.\n\n";
     hamiltonian();
-    std::cout << "See hamiltonian.svg for the probability density found with newton vs analytical solution.\n"; 
+    std::cout << "See probability.svg for the probability density found with newton vs analytical solution.\n"; 
 
 
     

@@ -61,7 +61,7 @@ void hamiltonian(){
     auto stop_H = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed_H = stop_H - start_H;
 
-    std::ofstream out("wavefunctions.data");
+    std::ofstream out("probability.data");
     out << "0 0 0 0 0 0 0\n";
     for(int i=0;i<n;i++){
         out << r[i] << " " << f1_newton[i]*f1_newton[i] << " " << f2_newton[i]*f2_newton[i] << " " << f3_newton[i]*f3_newton[i] \

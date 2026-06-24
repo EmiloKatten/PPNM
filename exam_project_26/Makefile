@@ -4,9 +4,9 @@ LDLIBS += -lstdc++ -lm
 
 .PHONY: default clean
 
-default: Out.txt timing.svg comp_timing.svg wavefunctions.svg perturbation.svg
+default: Out.txt timing.svg comp_timing.svg probability.svg perturbation.svg
 
-Out.txt timing.data comp_timing.data wavefunctions.data perturbation.data: main 
+Out.txt timing.data comp_timing.data probability.data perturbation.data: main 
 	./main > Out.txt
 
 main: main.o run_timing.o hamiltonian.o
