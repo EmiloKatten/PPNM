@@ -141,8 +141,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M157.04,81.01 L199.60,81.01 M89.92,413.17 L142.80,411.45 L195.68,409.39 L248.55,405.91 L301.43,398.04 L354.31,382.88
-		L407.19,384.25 L460.06,358.91 L512.94,346.35 L565.82,310.20  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M157.04,81.01 L199.60,81.01 M89.92,413.18 L142.80,412.09 L195.68,409.84 L248.55,405.99 L301.43,394.61 L354.31,382.90
+		L407.19,375.61 L460.06,352.01 L512.94,336.14 L565.82,286.00  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>EVD</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -151,8 +151,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M157.04,99.01 L199.60,99.01 M89.92,409.29 L142.80,411.13 L195.68,405.75 L248.55,396.01 L301.43,377.25 L354.31,352.40
-		L407.19,316.81 L460.06,270.08 L512.94,201.61 L565.82,116.23  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M157.04,99.01 L199.60,99.01 M89.92,409.20 L142.80,411.36 L195.68,405.96 L248.55,395.11 L301.43,376.87 L354.31,351.33
+		L407.19,311.63 L460.06,266.41 L512.94,200.40 L565.82,118.58  '/></g>
 	</g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

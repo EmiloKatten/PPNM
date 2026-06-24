@@ -11,7 +11,7 @@ Out.txt timing.data comp_timing.data wavefunctions.data perturbation.data: main
 
 main: main.o run_timing.o hamiltonian.o
 
-main.o: main.cc root.h
+main.o: main.cc root.h run_timing.h hamiltonian.h
 run_timing.o : run_timing.cc run_timing.h
 hamiltonian.o : hamiltonian.cc hamiltonian.h
 

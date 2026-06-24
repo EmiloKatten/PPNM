@@ -14,16 +14,16 @@ Investigating the scaling of rootfinding using analytical Jacobian.
 From the lecture notes, newton rootfinding scales as O(n^2), while QR-decomposition
 scales as O(n^3) for a symmetric matrix. Thus we should expect a scaling of O(n^3).
 
-	N = 30,   time = 0.00388729 sec,   # of calls =10
-	N = 60,   time = 0.0318241 sec,   # of calls =13
-	N = 90,   time = 0.0649995 sec,   # of calls =9
-	N = 120,   time = 0.131816 sec,   # of calls =8
-	N = 150,   time = 0.379092 sec,   # of calls =12
-	N = 180,   time = 0.537936 sec,   # of calls =10
-	N = 210,   time = 0.749856 sec,   # of calls =9
-	N = 240,   time = 1.35448 sec,   # of calls =11
-	N = 270,   time = 1.89791 sec,   # of calls =11
-	N = 300,   time = 3.34383 sec,   # of calls =14
+	N = 30,   time = 0.00360474 sec,   # of calls =8
+	N = 60,   time = 0.021557 sec,   # of calls =9
+	N = 90,   time = 0.0810924 sec,   # of calls =11
+	N = 120,   time = 0.217705 sec,   # of calls =13
+	N = 150,   time = 0.318812 sec,   # of calls =10
+	N = 180,   time = 0.531022 sec,   # of calls =10
+	N = 210,   time = 0.660124 sec,   # of calls =8
+	N = 240,   time = 1.85075 sec,   # of calls =15
+	N = 270,   time = 1.54621 sec,   # of calls =9
+	N = 300,   time = 2.35639 sec,   # of calls =10
 
 Realistically, the size of the matrix should be no larger than N=300, since
 it becomes too expensive and time consuming.
@@ -38,16 +38,16 @@ requiring good initial guesses. On the contrary, EVD does not require
 any guesses and finds all eigenpairs very efficiently. Both should
 scale as O(n^3). Comparing these directly:
 
-	N = 10.   Newton: 0.000198126s.   EVD: 0.00352032s
-	N = 20.   Newton: 0.00166947s.   EVD: 0.00194754s
-	N = 30.   Newton: 0.00343132s.   EVD: 0.0065512s
-	N = 40.   Newton: 0.00641382s.   EVD: 0.0148861s
-	N = 50.   Newton: 0.0131479s.   EVD: 0.0309519s
-	N = 60.   Newton: 0.0261293s.   EVD: 0.0522255s
-	N = 70.   Newton: 0.0249594s.   EVD: 0.0827006s
-	N = 80.   Newton: 0.0466526s.   EVD: 0.122705s
-	N = 90.   Newton: 0.0574107s.   EVD: 0.181336s
-	N = 100.   Newton: 0.088355s.   EVD: 0.25443s
+	N = 10.   Newton: 0.000190541s.   EVD: 0.00359747s
+	N = 20.   Newton: 0.00112339s.   EVD: 0.00174391s
+	N = 30.   Newton: 0.00304796s.   EVD: 0.00637292s
+	N = 40.   Newton: 0.00634652s.   EVD: 0.0156591s
+	N = 50.   Newton: 0.0160853s.   EVD: 0.0312728s
+	N = 60.   Newton: 0.0261131s.   EVD: 0.0531467s
+	N = 70.   Newton: 0.0323586s.   EVD: 0.0871323s
+	N = 80.   Newton: 0.0525632s.   EVD: 0.125851s
+	N = 90.   Newton: 0.0661463s.   EVD: 0.182365s
+	N = 100.   Newton: 0.109078s.   EVD: 0.252422s
 
 EVD is slower, but has the advantage of finding all eigenpairs without
 requiring guesses. If we normalized the EVD times by matrix size n,
@@ -77,7 +77,7 @@ Using newton rootfinding, the eigenvalues of the hamiltonians (with rmax=30, dr=
 	n=1 : -0.498756,   error: 0.00124379
 	n=2 : -0.124922,   error: 7.80311e-05
 	n=3 : -0.0554079,   error: 0.000147636
-Time for evaluation: 1.39834ss
+Time for evaluation: 1.41307ss
 See hamiltonian.svg for the probability density found with newton vs analytical solution.
 
 
