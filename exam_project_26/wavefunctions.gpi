@@ -2,7 +2,7 @@ set terminal svg background rgb "white"
 set output "wavefunctions.svg"
 set title "Probability density of Hydrogen" font ",18"
 set xlabel "Radial coordinate r" font ",14"
-set ylabel "4π r^2 |ψ(r)|^2" font ",14"
+set ylabel "|ψ(r)|^2" font ",14"
 set key right top
 set tics out
 

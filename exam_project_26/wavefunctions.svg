@@ -401,7 +401,7 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='black'  d='M89.92,63.01 L89.92,413.40 L565.82,413.40 L565.82,63.01 L89.92,63.01 Z  '/>	<g transform="translate(19.83,238.21) rotate(270.00)" stroke="none" fill="black" font-family="Arial" font-size="14.00"  text-anchor="middle">
-		<text><tspan font-family="Arial" >4π r</tspan><tspan font-family="Arial"  font-size="11.2" dy="-7.00px">2</tspan><tspan font-family="Arial"  font-size="14.0" dy="7.00px"> |ψ(r)|</tspan><tspan font-family="Arial"  font-size="11.2" dy="-7.00px">2</tspan><tspan font-size="14.0" dy="7.00"></tspan></text>
+		<text><tspan font-family="Arial" >|ψ(r)|</tspan><tspan font-family="Arial"  font-size="11.2" dy="-7.00px">2</tspan><tspan font-size="14.0" dy="7.00"></tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
